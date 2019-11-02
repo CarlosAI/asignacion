@@ -9,9 +9,9 @@
 
 <script type="text/javascript">
 	var documento;
-	$("#file-json").attr("disabled",true)
-	$('#spinner').addClass('hm-spinner');
 	function cambio(){
+		$("#file-json").attr("disabled",true)
+		$('#spinner').addClass('hm-spinner');
 		console.log("cambio")
 		documento = document.getElementById('file-json').files[0]; 
 		console.log(documento)
