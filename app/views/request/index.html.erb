@@ -21,8 +21,13 @@
 	        data: documento,
 	        contentType: false,
 			processData: false,
-	        success:function(result){   
-		       console.log("ok")
+	        success:function(result){
+	        	if(result != 400){
+	        		console.log(result)
+	        		console.log("Archivos consultados")
+	        	}else{
+	        		console.log("No seleccionaste el archvio correcto")
+	        	}   
 	        },
 	        error:function(error){
 	        	console.log("no ok")

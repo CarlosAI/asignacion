@@ -82,7 +82,7 @@ class Operaciones
 
 		puts "El hash final es"
 		puts shipments
-		return 200
+		return shipments
 	end
 
 	def self.toCentimeters(pulgadas)
