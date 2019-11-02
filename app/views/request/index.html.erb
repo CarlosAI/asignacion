@@ -1,0 +1,33 @@
+<center>
+	<input type="file" id="file-json" accept="application/json" onchange="cambio()" />
+<!-- 	<label for="file" class="btn-3"><span>Selecciona o arrastra un archivo JSON</span></label> -->
+</center>
+
+
+
+<style type="text/css">
+
+</style>
+
+<script type="text/javascript">
+	var documento;
+	function cambio(){
+		console.log("cambio")
+		documento = document.getElementById('file-json').files[0]; 
+		console.log(documento)
+		$.ajax({
+	        type:"POST", 
+	        url:"<%= url_for fedex_consult_path %>" , 
+	        data: documento,
+	        contentType: false,
+			processData: false,
+	        success:function(result){   
+		       console.log("ok")
+	        },
+	        error:function(error){
+	        	console.log("no ok")
+	        }
+       	});
+	}
+
+</script>
