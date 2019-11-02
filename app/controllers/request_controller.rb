@@ -13,8 +13,9 @@ class RequestController < ApplicationController
   	salida = 200
 
     if params["_json"].present?
-      resultado = Operaciones.requestFedex(params["_json"])
+      salida = Operaciones.requestFedex(params["_json"])
     else
+      salida = 400
     end
 
   	respond_to do |format|
