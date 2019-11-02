@@ -27,7 +27,7 @@ class Operaciones
 					</ClientDetail>
 					<TransactionDetail><CustomerTransactionId>ActiveShipping</CustomerTransactionId></TransactionDetail>
 					<Version><ServiceId>trck</ServiceId><Major>3</Major><Intermediate>0</Intermediate><Minor>0</Minor></Version>
-					<PackageIdentifier><Value>#{tracking_number}</Value><Type>TRACKING_NUMBER_OR_DOORTAG</Type></PackageIdentifier>
+					<PackageIdentifier><Value>#{shp["tracking_number"]}</Value><Type>TRACKING_NUMBER_OR_DOORTAG</Type></PackageIdentifier>
 					<IncludeDetailedScans>1</IncludeDetailedScans>
 				</TrackRequest>"
 
