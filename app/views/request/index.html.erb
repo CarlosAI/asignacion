@@ -26,7 +26,7 @@
 	        	if(result["code"] == 200 || result["code"] == "200"){
 	        		console.log(result)
 	        		console.log("Archivos consultados")
-	        		// setReport(result["datos"]);
+	        		setReport();
 	        	}else{
 	        		console.log("No seleccionaste el archvio correcto")
 	        	}
@@ -40,8 +40,8 @@
        	});
 	}
 
-	function setReport(datos){
-		window.open("/reporte?params="+datos, '_blank');
+	function setReport(){
+		window.open("/reporte", '_blank');
 	}
 
 </script>

@@ -89,24 +89,7 @@ class Operaciones
 				trackings_error << [ shp["tracking_number"], "Error conexion con Fedex" ]
 				shp["errors"] = trackings_error
 			end
-
-			puts "el nuevo modo es"
-			puts fedex_parcel
-			shp["fedex_parcel"] = fedex_parcel
-			puts "y ahora es"
-			puts shp
 		end
-
-		puts "El hash final es"
-		puts shipments
 		return [200,shipments]
-	end
-
-	def self.toCentimeters(pulgadas)
-		return pulgadas * 2.54.to_f
-	end
-
-	def self.toKg(libras)
-		return libras * 0.453592.to_f
 	end
 end
