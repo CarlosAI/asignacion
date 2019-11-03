@@ -35,7 +35,8 @@ class ReporteShipments < Prawn::Document
     image logo, :at => [-10,570], :width => 70
     draw_text "Shipment Report",  :size => 30, :style => :bold, :at => [225, 530]
     draw_text "Informe de Sobre Peso",  :size => 10, :style => :bold, :at => [295, 520]
-    draw_text "Fecha: " + (Time.now.strftime("%d/%m/%y")).to_s,  :size => 11, :style => :bold, :at => [645, 520]
+    draw_text "Fecha: " + (Time.now.strftime("%d/%m/%y")).to_s,  :size => 11, :style => :bold, :at => [660, 520]
+    draw_text "Generado por: Carlos Alberto Ivan Carreon Silva",  :size => 6, :style => :bold, :at => [605, 510]
   end
 
   def table_content
