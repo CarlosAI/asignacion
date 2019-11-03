@@ -60,8 +60,8 @@ class Operaciones
 							else
 								fedex_parcel["weight"] = detalles["package_weight"]["value"].to_f
 							end
-							puts "Hasta aqui shp 1 es es"
-							puts shp
+							# puts "Hasta aqui shp 1 es es"
+							# puts shp
 							if detalles["package_dimensions"]["units"] == "IN"
 								fedex_parcel["length"] = (0.453592)*(detalles["package_dimensions"]["length"].to_f)
 								fedex_parcel["width"] = (0.453592)*(detalles["package_dimensions"]["width"].to_f)
@@ -71,6 +71,7 @@ class Operaciones
 								fedex_parcel["width"] = detalles["package_dimensions"]["width"].to_f
 								fedex_parcel["height"] = detalles["package_dimensions"]["height"].to_f
 							end
+							shp["fedex_parcel"] = fedex_parcel
 							puts "Hasta aqui shp 2 es"
 							puts shp
 						else
@@ -89,24 +90,7 @@ class Operaciones
 				trackings_error << [ shp["tracking_number"], "Error conexion con Fedex" ]
 				shp["errors"] = trackings_error
 			end
-
-			puts "el nuevo modo es"
-			puts fedex_parcel
-			shp["fedex_parcel"] = fedex_parcel
-			puts "y ahora es"
-			puts shp
 		end
-
-		puts "El hash final es"
-		puts shipments
 		return [200,shipments]
-	end
-
-	def self.toCentimeters(pulgadas)
-		return pulgadas * 2.54.to_f
-	end
-
-	def self.toKg(libras)
-		return libras * 0.453592.to_f
 	end
 end

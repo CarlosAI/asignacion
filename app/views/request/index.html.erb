@@ -3,11 +3,8 @@
 <!-- 	<label for="file" class="btn-3"><span>Selecciona o arrastra un archivo JSON</span></label> -->
 </center>
 
-<a id="el_documento" download="prueba.pdf" href="" title='Download pdf document'>Download</a>
 <div id="spinner" class=""></div>
 
-
-<a href="prueba_1.pdf" download>PDF</a>
 <script type="text/javascript">
 	var documento;
 	function cambio(){
@@ -26,7 +23,7 @@
 	        	if(result["code"] == 200 || result["code"] == "200"){
 	        		console.log(result)
 	        		console.log("Archivos consultados")
-	        		// setReport(result["datos"]);
+	        		setReport();
 	        	}else{
 	        		console.log("No seleccionaste el archvio correcto")
 	        	}
@@ -40,8 +37,8 @@
        	});
 	}
 
-	function setReport(datos){
-		window.open("/reporte?params="+datos, '_blank');
+	function setReport(){
+		window.open("/reporte", '_blank');
 	}
 
 </script>

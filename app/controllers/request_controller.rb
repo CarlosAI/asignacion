@@ -8,38 +8,22 @@ class RequestController < ApplicationController
   end
 
   def read
-  	puts "entro y params son"
-  	puts params
-  	salida = 200
-
     if params["_json"].present?
       salida = Operaciones.requestFedex(params["_json"])
-      puts "ok" 
-      puts "la salida antes de file es"
-      puts salida[1]
       la_data = salida[1].to_json
-      puts "la data es"
+      puts "la data fainl obtenida es "
       puts la_data
-      file_name = "prueba_2.json"
+      file_name = "datos_reporte.json"
       open(file_name, 'wb') do |file|
-        file.write(la_data.to_json)
+        file.write(la_data)
       end
-
-
-
       data = File.read(file_name)
-
-      puts "Conseguimos la data y es"
+      puts "obtuvimos el file y es"
       puts data
-
-
     else
       salida = 404
     end
 
-
-    puts "la salida es"
-    puts salida
     if salida[0] == 200
       salida = salida.to_json
       render status: 200, json: {
@@ -57,38 +41,13 @@ class RequestController < ApplicationController
   def reporte_pdf
     puts "los params para report son"
     puts params
-    # respond_to do |format|
-    #   format.pdf do
-    #     pdf = Prawn::Document.new
-    #     pdf.text "Hellow World!"
-    #     send_data pdf.render,
-    #       filename: "export.pdf",
-    #       type: 'application/pdf',
-    #       disposition: 'inline'
-    #   end
-    # end
-      # # puts skus
-      nombre_pdf = "reporte"
+    nombre_pdf = "reporte"
 
-      # respond_to do |format|
-        # format.json { render json: [] }
-        #format.html
-        # format.pdf do
-        # respond_to do |format|
-        #   format.pdf do
-            pdf = ReporteShipments.new("hola")
-            # file_name = pdf.render
-            # pdf = Base64.decode64 file_name
-            # puts pdf
-
-            # puts "el pdf es"
-            # file_name = "prueba_2.pdf"
-            # open(file_name, 'wb') do |file|
-            #   file.write(pdf)
-            # end
-            # puts file_name
-            send_data pdf.render, filename: nombre_pdf, type: 'application/pdf', disposition: "inline"
-        #   end
-        # end
+    raw_data = File.read("datos_reporte.json")
+    data = JSON.parse raw_data
+    puts "antes de enviar la data la data es"
+    puts data
+    pdf = ReporteShipments.new(data)
+    send_data pdf.render, filename: nombre_pdf, type: 'application/pdf', disposition: "inline"
   end
 end
