@@ -13,7 +13,7 @@ class Operaciones
 			                            )
 		shipments.each do |shp|
 			puts "Vamos con el tracking_number #{shp["tracking_number"]}"
-			shp["fedex_parcel"] = {}
+			fedex_parcel = {}
 			shp["errors"] = {}
 			xml_req = 
 				"<TrackRequest xmlns='http://fedex.com/ws/track/v3'>
@@ -52,20 +52,27 @@ class Operaciones
 						if res["details"]["notification"]["severity"] == "SUCCESS"
 							detalles = res["details"]
 							detalles["package_weight"]
+							puts "Hasta aqui shp original es es"
+							puts shp
 							if detalles["package_weight"]["units"] == "LB"
-								shp["fedex_parcel"]["weight"] = (2.54)*(detalles["package_weight"]["value"].to_f)
+								peso = (2.54)*(detalles["package_weight"]["value"].to_f)
+								fedex_parcel["weight"] = peso
 							else
-								shp["fedex_parcel"]["weight"] = detalles["package_weight"]["value"].to_f
+								fedex_parcel["weight"] = detalles["package_weight"]["value"].to_f
 							end
+							puts "Hasta aqui shp 1 es es"
+							puts shp
 							if detalles["package_dimensions"]["units"] == "IN"
-								shp["fedex_parcel"]["length"] = (0.453592)*(detalles["package_dimensions"]["length"].to_f)
-								shp["fedex_parcel"]["width"] = (0.453592)*(detalles["package_dimensions"]["width"].to_f)
-								shp["fedex_parcel"]["height"] = (0.453592)*(detalles["package_dimensions"]["height"].to_f)
+								fedex_parcel["length"] = (0.453592)*(detalles["package_dimensions"]["length"].to_f)
+								fedex_parcel["width"] = (0.453592)*(detalles["package_dimensions"]["width"].to_f)
+								fedex_parcel["height"] = (0.453592)*(detalles["package_dimensions"]["height"].to_f)
 							else
-								shp["fedex_parcel"]["length"] = detalles["package_dimensions"]["length"].to_f
-								shp["fedex_parcel"]["width"] = detalles["package_dimensions"]["width"].to_f
-								shp["fedex_parcel"]["height"] = detalles["package_dimensions"]["height"].to_f
+								fedex_parcel["length"] = detalles["package_dimensions"]["length"].to_f
+								fedex_parcel["width"] = detalles["package_dimensions"]["width"].to_f
+								fedex_parcel["height"] = detalles["package_dimensions"]["height"].to_f
 							end
+							puts "Hasta aqui shp 2 es"
+							puts shp
 						else
 							trackings_error << [ shp["tracking_number"], "Error: No se obtuvo ningun resultado para esta guia" ]
 							shp["errors"] = trackings_error
@@ -82,11 +89,17 @@ class Operaciones
 				trackings_error << [ shp["tracking_number"], "Error conexion con Fedex" ]
 				shp["errors"] = trackings_error
 			end
+
+			puts "el nuevo modo es"
+			puts fedex_parcel
+			shp["fedex_parcel"] = fedex_parcel
+			puts "y ahora es"
+			puts shp
 		end
 
 		puts "El hash final es"
 		puts shipments
-		return shipments
+		return [200,shipments]
 	end
 
 	def self.toCentimeters(pulgadas)

@@ -7,7 +7,7 @@ class ReporteShipments < Prawn::Document
 
     header
     table_content
-
+    render_file('prawn.pdf')
   end
 
 

@@ -7,7 +7,7 @@
 <div id="spinner" class=""></div>
 
 
-
+<a href="prueba_1.pdf" download>PDF</a>
 <script type="text/javascript">
 	var documento;
 	function cambio(){
@@ -23,10 +23,10 @@
 	        contentType: false,
 			processData: false,
 	        success:function(result){
-	        	if(result != 400){
+	        	if(result["code"] == 200 || result["code"] == "200"){
 	        		console.log(result)
 	        		console.log("Archivos consultados")
-	        		setReport(result);
+	        		// setReport(result["datos"]);
 	        	}else{
 	        		console.log("No seleccionaste el archvio correcto")
 	        	}
@@ -34,25 +34,14 @@
 	        },
 	        error:function(error){
 	        	console.log("no ok")
+	        	alert("Error de conexion, Please retry later")
 	        	$('#spinner').removeClass('hm-spinner');   
 	        }
        	});
 	}
 
 	function setReport(datos){
-		$.ajax({
-	        type:"GET", 
-	        url:"<%= url_for reporte_path %>" , 
-	        data: {datos: datos},
-	        success:function(result){
-	        	console.log("ok reporte")
-	        	console.log(result)
-	        	$("#el_documento").attr("href", result);
-	        },
-	        error:function(error){
-	        	console.log("no ok reporte")
-	        }
-       	});
+		window.open("/reporte?params="+datos, '_blank');
 	}
 
 </script>
