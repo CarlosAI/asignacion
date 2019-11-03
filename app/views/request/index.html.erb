@@ -3,6 +3,7 @@
 <!-- 	<label for="file" class="btn-3"><span>Selecciona o arrastra un archivo JSON</span></label> -->
 </center>
 
+<a id="el_documento" download="prueba.pdf" title='Download pdf document' />
 <div id="spinner" class=""></div>
 
 
@@ -46,6 +47,7 @@
 	        success:function(result){
 	        	console.log("ok reporte")
 	        	console.log(result)
+	        	$("#el_documento").attr("href", result);
 	        },
 	        error:function(error){
 	        	console.log("no ok reporte")
