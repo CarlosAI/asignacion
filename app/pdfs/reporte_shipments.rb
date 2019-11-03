@@ -2,6 +2,7 @@ class ReporteShipments < Prawn::Document
   def initialize(data)
     super(:page_layout=> :landscape)
 
+    puts "la data es"
     puts data
     @shipments = data
     @shipments_error = []
