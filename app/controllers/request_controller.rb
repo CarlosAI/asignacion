@@ -22,4 +22,30 @@ class RequestController < ApplicationController
         format.json { render json: salida}
     end
   end
+
+  def reporte_pdf
+    puts "los params para report son"
+    puts params
+    # respond_to do |format|
+    #   format.pdf do
+    #     pdf = Prawn::Document.new
+    #     pdf.text "Hellow World!"
+    #     send_data pdf.render,
+    #       filename: "export.pdf",
+    #       type: 'application/pdf',
+    #       disposition: 'inline'
+    #   end
+    # end
+      # # puts skus
+      nombre_pdf = "reporte"
+
+      # respond_to do |format|
+        # format.json { render json: [] }
+        #format.html
+        # format.pdf do
+          pdf = ReporteShipments.new("hola")
+          send_data pdf.render, filename: nombre_pdf, type: 'application/pdf', disposition: "inline"
+        # end
+      # end
+  end
 end

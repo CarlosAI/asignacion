@@ -25,6 +25,7 @@
 	        	if(result != 400){
 	        		console.log(result)
 	        		console.log("Archivos consultados")
+	        		setReport(result);
 	        	}else{
 	        		console.log("No seleccionaste el archvio correcto")
 	        	}
@@ -33,6 +34,20 @@
 	        error:function(error){
 	        	console.log("no ok")
 	        	$('#spinner').removeClass('hm-spinner');   
+	        }
+       	});
+	}
+
+	function setReport(datos){
+		$.ajax({
+	        type:"POST", 
+	        url:"<%= url_for reporte_path %>" , 
+	        data: {datos: datos},
+	        success:function(result){
+	        	console.log("ok reporte")
+	        },
+	        error:function(error){
+	        	console.log("no ok reporte")
 	        }
        	});
 	}

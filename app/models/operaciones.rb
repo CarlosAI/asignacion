@@ -13,6 +13,8 @@ class Operaciones
 			                            )
 		shipments.each do |shp|
 			puts "Vamos con el tracking_number #{shp["tracking_number"]}"
+			shp["fedex_parcel"] = {}
+			shp["errors"] = {}
 			xml_req = 
 				"<TrackRequest xmlns='http://fedex.com/ws/track/v3'>
 					<WebAuthenticationDetail>
@@ -48,7 +50,6 @@ class Operaciones
 						tracking_info = results.first
 						a = tracking_info.to_json
 						res = JSON.parse a
-						shp["fedex_parcel"] = {}
 						if res["details"]["notification"]["severity"] == "SUCCESS"
 							detalles = res["details"]
 							detalles["package_weight"]
@@ -68,15 +69,19 @@ class Operaciones
 							end
 						else
 							trackings_error << [ shp["tracking_number"], "Error: No se obtuvo ningun resultado para esta guia" ]
+							shp["errors"] << trackings_error
 						end
 					else
 						trackings_error << [ shp["tracking_number"], "Error conexion con Fedex" ]
+						shp["errors"] << trackings_error
 					end
 				else
 					trackings_error << [ shp["tracking_number"] , info["TrackReply"]["Notifications"]["Message"] ]
+					shp["errors"] << trackings_error
 				end
 			else
 				trackings_error << [ shp["tracking_number"], "Error conexion con Fedex" ]
+				shp["errors"] << trackings_error
 			end
 		end
 
