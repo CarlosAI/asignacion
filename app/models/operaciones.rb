@@ -60,8 +60,8 @@ class Operaciones
 							else
 								fedex_parcel["weight"] = detalles["package_weight"]["value"].to_f
 							end
-							puts "Hasta aqui shp 1 es es"
-							puts shp
+							# puts "Hasta aqui shp 1 es es"
+							# puts shp
 							if detalles["package_dimensions"]["units"] == "IN"
 								fedex_parcel["length"] = (0.453592)*(detalles["package_dimensions"]["length"].to_f)
 								fedex_parcel["width"] = (0.453592)*(detalles["package_dimensions"]["width"].to_f)
@@ -71,6 +71,7 @@ class Operaciones
 								fedex_parcel["width"] = detalles["package_dimensions"]["width"].to_f
 								fedex_parcel["height"] = detalles["package_dimensions"]["height"].to_f
 							end
+							shp["fedex_parcel"] = fedex_parcel
 							puts "Hasta aqui shp 2 es"
 							puts shp
 						else
