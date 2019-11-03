@@ -41,8 +41,7 @@ class Operaciones
 			response =  http.post(url.path, xml_req)
 
 			if response.code == "200" || response.code == 200
-				res = response.body
-				info = Hash.from_xml(res)
+				info = Hash.from_xml(response.body)
 
 				if info["TrackReply"]["Notifications"]["Severity"] == "SUCCESS"
 					results = fedex.track(:tracking_number => shp["tracking_number"])
@@ -69,19 +68,19 @@ class Operaciones
 							end
 						else
 							trackings_error << [ shp["tracking_number"], "Error: No se obtuvo ningun resultado para esta guia" ]
-							shp["errors"] << trackings_error
+							shp["errors"] = trackings_error
 						end
 					else
 						trackings_error << [ shp["tracking_number"], "Error conexion con Fedex" ]
-						shp["errors"] << trackings_error
+						shp["errors"] = trackings_error
 					end
 				else
 					trackings_error << [ shp["tracking_number"] , info["TrackReply"]["Notifications"]["Message"] ]
-					shp["errors"] << trackings_error
+					shp["errors"] = trackings_error
 				end
 			else
 				trackings_error << [ shp["tracking_number"], "Error conexion con Fedex" ]
-				shp["errors"] << trackings_error
+				shp["errors"] = trackings_error
 			end
 		end
 
