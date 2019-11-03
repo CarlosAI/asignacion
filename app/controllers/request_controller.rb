@@ -46,6 +46,8 @@ class RequestController < ApplicationController
         respond_to do |format|
           format.pdf do
             pdf = ReporteShipments.new("hola")
+            puts "el pdf es"
+            puts pdf
             send_data pdf.render, filename: nombre_pdf, type: 'application/pdf', disposition: "inline"
           end
         end
