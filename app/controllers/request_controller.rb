@@ -43,9 +43,11 @@ class RequestController < ApplicationController
         # format.json { render json: [] }
         #format.html
         # format.pdf do
-          pdf = ReporteShipments.new("hola")
-          send_data pdf.render, filename: nombre_pdf, type: 'application/pdf', disposition: "inline"
-        # end
-      # end
+        respond_to do |format|
+          format.pdf do
+            pdf = ReporteShipments.new("hola")
+            send_data pdf.render, filename: nombre_pdf, type: 'application/pdf', disposition: "inline"
+          end
+        end
   end
 end
