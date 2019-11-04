@@ -22,7 +22,7 @@ class RequestController < ApplicationController
       if resultado == 200
         puts "El JSON es correcto !!!"
         file_name = "datos_reporte.json"
-        raw_data = data
+        raw_data = data.to_json
         open(file_name, 'wb') do |file|
           file.write(raw_data)
         end
@@ -41,6 +41,9 @@ class RequestController < ApplicationController
     data = File.read("datos_reporte.json")
     puts "obtuvimos el file y es"
     puts data
+    puts data.class
+    raw_data = JSON.parse data
+    puts raw_data.class
     salida = Operaciones.requestFedex(data)
     la_data = salida[1].to_json
     puts "la data fainl obtenida es "
