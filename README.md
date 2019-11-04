@@ -1,24 +1,10 @@
 # README
+Proyecto de asignacion.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Pequeño sistema Web que a traves de un archivo JSON proporcionado:
+-Verifica la correcta estructura del archivo JSON.
+-Consulta a Fedex via API, informacion correspondiente indicada en el archivo JSON.
+-Genera un reporte de resultados.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# Contributors
+[CarlosAI] (https://github.com/CarlosAI) (Carlos Alberto Ivan)
