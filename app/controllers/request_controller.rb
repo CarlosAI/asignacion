@@ -44,7 +44,7 @@ class RequestController < ApplicationController
     puts data.class
     raw_data = JSON.parse data
     puts raw_data.class
-    salida = Operaciones.requestFedex(data)
+    salida = Operaciones.requestFedex(raw_data)
     la_data = salida[1].to_json
     puts "la data fainl obtenida es "
     puts la_data
