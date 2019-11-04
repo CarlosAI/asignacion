@@ -7,6 +7,7 @@
 
 <script type="text/javascript">
 	var documento;
+
 	function cambio(){
 		$("#file-json").attr("disabled",true)
 		$('#spinner').addClass('hm-spinner');
@@ -15,24 +16,51 @@
 		console.log(documento)
 		$.ajax({
 	        type:"POST", 
-	        url:"<%= url_for fedex_consult_path %>" , 
+	        url:"<%= url_for validar_json_path %>" , 
 	        data: documento,
 	        contentType: false,
 			processData: false,
 	        success:function(result){
-	        	if(result["code"] == 200 || result["code"] == "200"){
+	        	if(result == 200){
 	        		console.log(result)
 	        		console.log("Archivos consultados")
-	        		setReport();
+	        		requestFedex();
+	        	}else if(result == 400){
+	        		alert("El archivo no pudo ser procesado por alguna de las siguientes razones: \n 1. El archivo no cumple con las estructur correcta \n 2. El archivo contiene datos/informacion desconocida \n 3. El archvio esta corrupto o dañado")
+			        	$('#spinner').removeClass('hm-spinner');
+			        	$("#file-json").attr("disabled",false)   
 	        	}else{
-	        		console.log("No seleccionaste el archvio correcto")
+	        		alert("Error al intentar subir el archivo")
+		        	$('#spinner').removeClass('hm-spinner');
+		        	$("#file-json").attr("disabled",false)   
 	        	}
-	        	$('#spinner').removeClass('hm-spinner');   
 	        },
 	        error:function(error){
 	        	console.log("no ok")
 	        	alert("Error de conexion, Please retry later")
 	        	$('#spinner').removeClass('hm-spinner');   
+	        }
+       	});
+	}
+
+	function requestFedex(){
+		console.log("cambio")
+		documento = document.getElementById('file-json').files[0]; 
+		console.log(documento)
+		$.ajax({
+	        type:"POST", 
+	        url:"<%= url_for fedex_consult_path %>" , 
+	        data: {},
+	        success:function(result){
+        		setReport();
+	        	$('#spinner').removeClass('hm-spinner');
+	        	$("#file-json").attr("disabled",false)     
+	        },
+	        error:function(error){
+	        	console.log("no ok")
+	        	alert("Error de conexion, Please retry later")
+	        	$('#spinner').removeClass('hm-spinner');
+	        	$("#file-json").attr("disabled",false)     
 	        }
        	});
 	}

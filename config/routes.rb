@@ -5,4 +5,5 @@ Rails.application.routes.draw do
 
   post 'fedex_consult', to: 'request#read'
   get '/reporte',to: 'request#reporte_pdf'
+  post '/validar_json', to: 'request#validar_json'
 end

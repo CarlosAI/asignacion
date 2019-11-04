@@ -93,4 +93,68 @@ class Operaciones
 		end
 		return [200,shipments]
 	end
+
+	def self.ValidarJson(params)
+		puts "entramos a validar json"
+		puts params.class
+		puts params
+		salida = 400
+		homogeno = []
+		keys_expected = ["tracking_number", "carrier", "parcel"]
+		parcel_expected = ["length", "width", "height", "weight", "distance_unit", "mass_unit"]
+		if params.class == Array
+			puts "paso primer filtro"
+			params.each do |shipment|
+				puts "llego para el salto del primero"
+				puts "vamos con shipment y salida es #{shipment.class}"
+				puts shipment
+				if shipment.class == Hash
+					keys = shipment.keys
+					puts "paso segundo filtro"
+					if keys.size >= 3
+						puts "paso tercer filtro"
+						keys_correctas = true
+						keys.map { |i| keys_correctas = false if keys_expected.exclude?(i)}
+						if keys_correctas
+							puts "paso 4 filtro"
+							if shipment[keys_expected[0]].class == String || shipment[keys_expected[0]].class == Integer
+								puts "paso 5 filtro"
+								if shipment[keys_expected[1]].class == String
+									puts "paso 6 filtro"
+									if shipment[keys_expected[2]].class == Hash
+										puts "paso 7 filtro"
+										parcel_keys = shipment[keys_expected[2]].keys
+										if parcel_keys.size >= 6
+											puts "paso 8 filtro"
+											keys_correctas = true
+											parcel_keys.map { |i| keys_correctas = false if parcel_expected.exclude?(i)}
+											if keys_correctas
+												puts "paso 9 filtro"
+												parcel = shipment[keys_expected[2]]
+												data_types = true
+												parcel_expected[0..3].map { |k| data_types = false if parcel[k].class != Integer && parcel[k].class != Float && parcel[k].class != String }
+												if data_types
+													puts "paso 10 filtro"
+													parcel_expected[4..5].map { |k| data_types = false if parcel[k].class != String }
+													if data_types
+														puts "paso 11 filtro"
+														puts "llego al ultimo filtro"
+														homogeno << 200
+													end
+												end
+											end
+										end
+									end
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+		if homogeno.uniq.size == 1 && homogeno.uniq[0] == 200
+			salida = 200
+		end
+		return salida
+	end
 end
