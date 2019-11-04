@@ -177,14 +177,18 @@ html {
 
 .hm-spinner {
   display: inline-block;
-  width: 164px;
-  height: 164px;
+  width: 180px;
+  height: 180px;
+  top:45%;
+  left:45%;
+  z-index: 999;
+  position: fixed;
 }
 .hm-spinner:after {
   content: " ";
   display: block;
-  width: 46px;
-  height: 46px;
+  width: 180px;
+  height: 180px;
   margin: 1px;
   border-radius: 50%;
   border: 5px solid #000;

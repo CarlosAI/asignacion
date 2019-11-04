@@ -13,19 +13,19 @@
     <div class="md-step active">
       <div id="paso1" class="md-step-circle"><span>1</span></div>
       <div class="md-step-title">Verificar archivo</div>
-       <div class="md-step-optional">Archivo Correcto</div>
+       <div id="textpaso1" class="md-step-optional" hidden="true">Archivo Correcto</div>
     </div>
     <div class="md-step active">
       <div id="paso2" class="md-step-circle"><span>2</span></div>
       <div class="md-step-title">Consultar datos</div>
-      <div class="md-step-optional">Datos consultados correctamente de Fedex</div>
+      <div id="textpaso2" class="md-step-optional" hidden="true">Datos consultados correctamente de Fedex</div>
       <div class="md-step-bar-left"></div>
       <div class="md-step-bar-right"></div>
     </div>
     <div class="md-step active">
       <div id="paso3" class="md-step-circle"><span>3</span></div>
       <div class="md-step-title">Generar Reporte</div>
-      <div class="md-step-optional">Reporte generado con Exito.</div>
+      <div id="textpaso3" class="md-step-optional" hidden="true">Reporte generado con Exito.</div>
       <div class="md-step-bar-left"></div>
       <div class="md-step-bar-right"></div>
     </div>
@@ -53,6 +53,7 @@
 	        		console.log(result)
 	        		console.log("Archivos consultados")
 	        		$("#paso1").css('background-color', '#03fa03');
+	        		$("#textpaso1").attr("hidden",false);
 	        		requestFedex();
 	        	}else if(result == 400){
 	        		alert("El archivo no pudo ser procesado por alguna de las siguientes razones: \n 1. El archivo no cumple con las estructura correcta \n 2. El archivo contiene datos/informacion desconocida \n 3. El archivo esta corrupto o dañado")
@@ -81,7 +82,8 @@
 	        url:"<%= url_for fedex_consult_path %>" , 
 	        data: {},
 	        success:function(result){
-	        	$("#paso1").css('background-color', '#03fa03');
+	        	$("#paso2").css('background-color', '#03fa03');
+	        	$("#textpaso2").attr("hidden",false);
         		setReport();
 	        	$('#spinner').removeClass('hm-spinner');
 	        	$("#file-json").attr("disabled",false)     
@@ -96,7 +98,8 @@
 	}
 
 	function setReport(){
-		$("#paso1").css('background-color', '#03fa03');
+		$("#paso3").css('background-color', '#03fa03');
+		$("#textpaso3").attr("hidden",false);
 		window.open("/reporte", '_blank');
 	}
 
