@@ -100,6 +100,7 @@ class Operaciones
 		puts params
 		salida = 400
 		homogeno = []
+		total_params = params.size
 		keys_expected = ["tracking_number", "carrier", "parcel"]
 		parcel_expected = ["length", "width", "height", "weight", "distance_unit", "mass_unit"]
 		if params.class == Array
@@ -152,7 +153,7 @@ class Operaciones
 				end
 			end
 		end
-		if homogeno.uniq.size == 1 && homogeno.uniq[0] == 200
+		if homogeno.size == total_params
 			salida = 200
 		end
 		return salida
