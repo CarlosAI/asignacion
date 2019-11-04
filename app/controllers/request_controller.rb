@@ -9,7 +9,8 @@ class RequestController < ApplicationController
 
   def read
     if params["_json"].present?
-      salida = Operaciones.requestFedex(params["_json"])
+      resultado = Operaciones.ValidarJson(params["_json"])
+      # salida = Operaciones.requestFedex(params["_json"])
       la_data = salida[1].to_json
       puts "la data fainl obtenida es "
       puts la_data

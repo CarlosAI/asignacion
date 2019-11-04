@@ -93,4 +93,50 @@ class Operaciones
 		end
 		return [200,shipments]
 	end
+
+	def self.ValidarJson(params)
+		puts "entramos a validar json"
+		puts params.class
+		puts params
+		salida = 400
+		homogeno = false
+		keys_expected = ["tracking_number", "carrier", "parcel"]
+		parcel_expected = ["length", "width", "height", "weight", "distance_unit", "mass_unit"]
+		if params.class == Array
+			params.each do |shipment|
+				if shipment.class == Hash
+					keys = shipment.keys
+					if keys.size >= 3
+						keys_correctas = true
+						keys.map { |i| keys_correctas = false if keys_expected.exclude?(i)}
+						if keys_correctas
+							if shipment[keys_expected[0]].class == String || shipment[keys_expected[0]].class == Integer
+								if shipment[keys_expected[1]].class == String
+									if shipment[keys_expected[2]].class == Hash
+										parcel_keys = shipment[keys_expected[2]].keys
+										if parcel_keys.size >= 6
+											keys_correctas = true
+											parcel_keys.map { |i| keys_correctas = false if parcel_expected.exclude?(i)}
+											if keys_correctas
+												parcel = shipment[keys_expected[2]]
+												data_types = true
+												parcel_expected[0..3].map { |k| data_types = false if parcel[k].class != Integer && parcel[k].class != Float && parcel[k].class != String }
+												if data_types
+													parcel_expected[4..5].map { |k| data_types = false if parcel[k].class != String }
+													if data_types
+														salida = 200
+													end
+												end
+											end
+										end
+									end
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+		return salida
+	end
 end
