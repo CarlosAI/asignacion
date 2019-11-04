@@ -64,7 +64,7 @@ class RequestController < ApplicationController
   def reporte_pdf
     puts "los params para report son"
     puts params
-    nombre_pdf = "reporte"
+    nombre_pdf = "Reporte Sobre Peso"
 
     raw_data = File.read("datos_reporte.json")
     data = JSON.parse raw_data
