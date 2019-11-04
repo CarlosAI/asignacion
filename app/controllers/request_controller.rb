@@ -1,41 +1,60 @@
 class RequestController < ApplicationController
 
-	skip_before_action :verify_authenticity_token, :only => [:read]
+	skip_before_action :verify_authenticity_token, :only => [:read, :validar_json]
 
   def index
   	# saludo = Operaciones.prueba 
   	# puts saludo
   end
 
-  def read
+  def validar_json
     if params["_json"].present?
-      resultado = Operaciones.ValidarJson(params["_json"])
-      # salida = Operaciones.requestFedex(params["_json"])
-      la_data = salida[1].to_json
-      puts "la data fainl obtenida es "
-      puts la_data
-      file_name = "datos_reporte.json"
-      open(file_name, 'wb') do |file|
-        file.write(la_data)
-      end
-      data = File.read(file_name)
-      puts "obtuvimos el file y es"
+      puts "val el json"
+      # puts params["_json"].class
+      raw_data =  params["_json"]
+      raw_data = raw_data.to_json
+      data = JSON.parse raw_data
       puts data
+      puts data.class
+      puts data[0].class
+
+      resultado = Operaciones.ValidarJson(data)
+      if resultado == 200
+        puts "El JSON es correcto !!!"
+        file_name = "datos_reporte.json"
+        raw_data = data
+        open(file_name, 'wb') do |file|
+          file.write(raw_data)
+        end
+      end
     else
-      salida = 404
+      resultado = 404
     end
 
+    respond_to do |format|
+      format.json { render json: resultado }
+    end
+  end
+
+  def read
+
+    data = File.read("datos_reporte.json")
+    puts "obtuvimos el file y es"
+    puts data
+    salida = Operaciones.requestFedex(data)
+    la_data = salida[1].to_json
+    puts "la data fainl obtenida es "
+    puts la_data
+
+    file_name = "datos_reporte.json"
+    open(file_name, 'wb') do |file|
+      file.write(la_data)
+    end
+      
     if salida[0] == 200
-      salida = salida.to_json
-      render status: 200, json: {
-        datos: salida, code: 200
-      }.to_json
-    elsif salida == 404
-      render status: 201, json: {
-        datos: "No seleccionaste los datos correctos", code: 202,
-      }.to_json
+      render status: 200, json: { datos: salida }.to_json
     else
-      render status: 400, json: {datos: "Internal Server Error",}.to_json
+      render status: 400, json: {datos: "Fedex Error",}.to_json
     end
   end
 
@@ -50,5 +69,11 @@ class RequestController < ApplicationController
     puts data
     pdf = ReporteShipments.new(data)
     send_data pdf.render, filename: nombre_pdf, type: 'application/pdf', disposition: "inline"
+  end
+
+  private
+
+  def request_params
+    params.permite(:_json)
   end
 end
