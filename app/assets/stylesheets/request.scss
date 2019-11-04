@@ -1,3 +1,272 @@
 // Place all the styles related to the request controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+body{
+	background-image: url("fondo.jpg");
+	/*filter: blur(8px);*/
+	/*-webkit-filter: blur(8px);*/
+	/*width: 100%;*/
+	height: 100%; 
+	/*background-position: center;*/
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+html {
+	-webkit-font-smoothing: antialiased!important;
+	-moz-osx-font-smoothing: grayscale!important;
+	-ms-font-smoothing: antialiased!important;
+}
+
+.md-stepper-horizontal {
+	margin-top: 120px;
+	display:table;
+	width:100%;
+	/*margin:0 auto;*/
+	background-color:#e6e8e6;
+	box-shadow: 0 3px 8px -6px rgba(0,0,0,.50);
+}
+.md-stepper-horizontal .md-step {
+	display:table-cell;
+	position:relative;
+	padding:24px;
+}
+.md-stepper-horizontal .md-step:hover,
+.md-stepper-horizontal .md-step:active {
+	background-color:rgba(0,0,0,0.04);
+}
+.md-stepper-horizontal .md-step:active {
+	border-radius: 15% / 75%;
+}
+.md-stepper-horizontal .md-step:first-child:active {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+.md-stepper-horizontal .md-step:last-child:active {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+.md-stepper-horizontal .md-step:hover .md-step-circle {
+	background-color:#636563;
+}
+.md-stepper-horizontal .md-step:first-child .md-step-bar-left,
+.md-stepper-horizontal .md-step:last-child .md-step-bar-right {
+	display:none;
+}
+.md-stepper-horizontal .md-step .md-step-circle {
+	width:30px;
+	height:30px;
+	margin:0 auto;
+	background-color:#636563;
+	border-radius: 50%;
+	text-align: center;
+	line-height:30px;
+	font-size: 16px;
+	font-weight: 600;
+	color:#FFFFFF;
+}
+.md-stepper-horizontal.green .md-step.active .md-step-circle {
+	background-color:#00AE4D;
+}
+.md-stepper-horizontal.orange .md-step.active .md-step-circle {
+	background-color:#636563;
+}
+.md-stepper-horizontal .md-step.active .md-step-circle {
+	background-color: rgb(33,150,243);
+}
+.md-stepper-horizontal .md-step.done .md-step-circle:before {
+	font-family:'FontAwesome';
+	font-weight:100;
+	content: "\f00c";
+}
+.md-stepper-horizontal .md-step.done .md-step-circle *,
+.md-stepper-horizontal .md-step.editable .md-step-circle * {
+	display:none;
+}
+.md-stepper-horizontal .md-step.editable .md-step-circle {
+	-moz-transform: scaleX(-1);
+	-o-transform: scaleX(-1);
+	-webkit-transform: scaleX(-1);
+	transform: scaleX(-1);
+}
+.md-stepper-horizontal .md-step.editable .md-step-circle:before {
+	font-family:'FontAwesome';
+	font-weight:100;
+	content: "\f040";
+}
+.md-stepper-horizontal .md-step .md-step-title {
+	margin-top:16px;
+	font-size:16px;
+	font-weight:600;
+}
+.md-stepper-horizontal .md-step .md-step-title,
+.md-stepper-horizontal .md-step .md-step-optional {
+	text-align: center;
+	color:rgba(0,0,0,.26);
+}
+.md-stepper-horizontal .md-step.active .md-step-title {
+	font-weight: 600;
+	color:rgba(0,0,0,.87);
+}
+.md-stepper-horizontal .md-step.active.done .md-step-title,
+.md-stepper-horizontal .md-step.active.editable .md-step-title {
+	font-weight:600;
+}
+.md-stepper-horizontal .md-step .md-step-optional {
+	font-size:12px;
+}
+.md-stepper-horizontal .md-step.active .md-step-optional {
+	color:rgba(0,0,0,.54);
+}
+.md-stepper-horizontal .md-step .md-step-bar-left,
+.md-stepper-horizontal .md-step .md-step-bar-right {
+	position:absolute;
+	top:36px;
+	height:1px;
+	border-top:1px solid #DDDDDD;
+}
+.md-stepper-horizontal .md-step .md-step-bar-right {
+	right:0;
+	left:50%;
+	margin-left:20px;
+}
+.md-stepper-horizontal .md-step .md-step-bar-left {
+	left:0;
+	right:50%;
+	margin-right:20px;
+}
+
+#btn-file{
+	padding: 10px;
+	width: 650px;
+	height: 200px;
+	background-color: #4bdfc4;
+	position: relative;
+	margin-top: 150px;
+	border-radius: 8px;
+	-o-border-radius:8px;
+	-moz-border-radius:8px;
+	transition: transform .5s;
+	box-shadow: 0px 6px 6px #000000;
+}
+
+#btn-file:hover{
+	/*filter: brightness(85%);*/
+	background-color: #0ce2bb;
+	transform: scale(1.1);
+	/*content: url("logo_upload.png");*/
+	/*width: 10%;*/
+}
+
+.imagen-load{
+	width: 10%;
+	/*display: none;*/
+}
+
+.image-load:hover{
+	/*display: block;*/
+}
+/*#btn-file:hover:after{
+	content: url("logo.png");
+	display: block;
+    position: absolute;
+    left: 123px; 
+    top: 56px;
+    width: 10px;
+}*/
+
+.hm-spinner {
+  display: inline-block;
+  width: 164px;
+  height: 164px;
+}
+.hm-spinner:after {
+  content: " ";
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 5px solid #000;
+  border-color: #000 transparent #000 transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+#file-json{
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	/*overflow: hidden;*/
+}
+
+#title{
+	text-align: center;
+	color: #000000;
+	padding-top: 32px;
+	font-size: 2.5em;
+}
+	/*
+.hm-spinner{
+	  height: 160px;
+	  width: 160px;
+	  border: 8px solid transparent;
+	  border-top-color: #9C27B0;
+	  border-bottom-color: #9C27B0;
+	  border-radius: 50%;
+	  position: fixed;
+	  -webkit-animation: spin 3s linear infinite;
+	          animation: spin 3s linear infinite;
+	  top:45%;
+	  left:45%;
+	  z-index: 999;
+	}
+
+	.hm-spinner::before{
+	  content: "";
+	  position: absolute;
+	  top: 20px;
+	  right: 20px;
+	  bottom: 20px;
+	  left: 20px;
+	  border: 6px solid transparent;
+	  border-top-color: #BA68C8;
+	  border-bottom-color: #BA68C8;
+	  border-radius: 50%;
+	  -webkit-animation: spin 1.5s linear infinite;
+	  animation: spin 1.5s linear infinite;
+	}
+
+	@-webkit-keyframes spin {
+	    from {
+	      -webkit-transform: rotate(0deg);
+	      transform: rotate(0deg);
+	    }
+	    to {
+	      -webkit-transform: rotate(360deg);
+	      transform: rotate(360deg);
+	    }
+	}
+
+	@keyframes spin {
+	    from {
+	      -webkit-transform: rotate(0deg);
+	      transform: rotate(0deg);
+	    }
+	    to {
+	      -webkit-transform: rotate(360deg);
+	      transform: rotate(360deg);
+	    }
+	}*/

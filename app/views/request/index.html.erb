@@ -1,10 +1,38 @@
+
 <center>
-	<input type="file" id="file-json" accept="application/json" onchange="cambio()" />
+	<div id="btn-file">
+		<p id="title">Seleccionar archivo</p>
+		<input type="file" id="file-json" accept="application/json" onchange="cambio()" />
+		<!-- <img src="logo.png"/> -->
+		<%= link_to image_tag("logo_upload.png", :class => "imagen-load")%>
+	</div>
 <!-- 	<label for="file" class="btn-3"><span>Selecciona o arrastra un archivo JSON</span></label> -->
 </center>
 
-<div id="spinner" class=""></div>
+<div class="md-stepper-horizontal orange">
+    <div class="md-step active">
+      <div id="paso1" class="md-step-circle"><span>1</span></div>
+      <div class="md-step-title">Verificar archivo</div>
+       <div class="md-step-optional">Archivo Correcto</div>
+    </div>
+    <div class="md-step active">
+      <div id="paso2" class="md-step-circle"><span>2</span></div>
+      <div class="md-step-title">Consultar datos</div>
+      <div class="md-step-optional">Datos consultados correctamente de Fedex</div>
+      <div class="md-step-bar-left"></div>
+      <div class="md-step-bar-right"></div>
+    </div>
+    <div class="md-step active">
+      <div id="paso3" class="md-step-circle"><span>3</span></div>
+      <div class="md-step-title">Generar Reporte</div>
+      <div class="md-step-optional">Reporte generado con Exito.</div>
+      <div class="md-step-bar-left"></div>
+      <div class="md-step-bar-right"></div>
+    </div>
+</div>
 
+<!-- <div id="spinner" class=""></div> -->
+<div class="spinner" class=""></div>
 <script type="text/javascript">
 	var documento;
 
@@ -24,6 +52,7 @@
 	        	if(result == 200){
 	        		console.log(result)
 	        		console.log("Archivos consultados")
+	        		$("#paso1").css('background-color', '#03fa03');
 	        		requestFedex();
 	        	}else if(result == 400){
 	        		alert("El archivo no pudo ser procesado por alguna de las siguientes razones: \n 1. El archivo no cumple con las estructura correcta \n 2. El archivo contiene datos/informacion desconocida \n 3. El archivo esta corrupto o dañado")
@@ -52,6 +81,7 @@
 	        url:"<%= url_for fedex_consult_path %>" , 
 	        data: {},
 	        success:function(result){
+	        	$("#paso1").css('background-color', '#03fa03');
         		setReport();
 	        	$('#spinner').removeClass('hm-spinner');
 	        	$("#file-json").attr("disabled",false)     
@@ -66,63 +96,8 @@
 	}
 
 	function setReport(){
+		$("#paso1").css('background-color', '#03fa03');
 		window.open("/reporte", '_blank');
 	}
 
 </script>
-
-
-
-<style type="text/css">
-.hm-spinner{
-	  height: 160px;
-	  width: 160px;
-	  border: 8px solid transparent;
-	  border-top-color: #9C27B0;
-	  border-bottom-color: #9C27B0;
-	  border-radius: 50%;
-	  position: fixed;
-	  -webkit-animation: spin 3s linear infinite;
-	          animation: spin 3s linear infinite;
-	  top:45%;
-	  left:45%;
-	  z-index: 999;
-	}
-
-	.hm-spinner::before{
-	  content: "";
-	  position: absolute;
-	  top: 20px;
-	  right: 20px;
-	  bottom: 20px;
-	  left: 20px;
-	  border: 6px solid transparent;
-	  border-top-color: #BA68C8;
-	  border-bottom-color: #BA68C8;
-	  border-radius: 50%;
-	  -webkit-animation: spin 1.5s linear infinite;
-	  animation: spin 1.5s linear infinite;
-	}
-
-	@-webkit-keyframes spin {
-	    from {
-	      -webkit-transform: rotate(0deg);
-	      transform: rotate(0deg);
-	    }
-	    to {
-	      -webkit-transform: rotate(360deg);
-	      transform: rotate(360deg);
-	    }
-	}
-
-	@keyframes spin {
-	    from {
-	      -webkit-transform: rotate(0deg);
-	      transform: rotate(0deg);
-	    }
-	    to {
-	      -webkit-transform: rotate(360deg);
-	      transform: rotate(360deg);
-	    }
-	}
-</style>
