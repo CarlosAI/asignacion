@@ -101,6 +101,9 @@ class Operaciones
 		salida = 400
 		homogeno = []
 		total_params = params.size
+		if total_params > 20
+			return salida
+		end
 		keys_expected = ["tracking_number", "carrier", "parcel"]
 		parcel_expected = ["length", "width", "height", "weight", "distance_unit", "mass_unit"]
 		if params.class == Array

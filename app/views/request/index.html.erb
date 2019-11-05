@@ -62,7 +62,7 @@
 	        		$("#textpaso1").attr("hidden",false);
 	        		requestFedex();
 	        	}else if(result == 400){
-	        		alert("El archivo no pudo ser procesado por alguna de las siguientes razones: \n 1. El archivo no cumple con las estructura correcta \n 2. El archivo contiene datos/informacion desconocida \n 3. El archivo esta corrupto o dañado")
+	        		alert("El archivo no pudo ser procesado por alguna de las siguientes razones: \n 1. El archivo no cumple con las estructura correcta \n 2. El archivo contiene datos/informacion desconocida \n 3. El archivo esta corrupto o dañado \n 4. El tamaño del archivo es mayor a 20 registros")
 			        	$('#spinner').removeClass('hm-spinner');
 			        	$("#file-json").attr("disabled",false)   
 	        	}else{
